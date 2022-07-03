@@ -7,24 +7,19 @@ import 'package:album/album_list.dart';
 
 abstract class AlbumListViewModel extends State<AlbumList> {
   final Url = "https://itunes.apple.com/search?term=jack+johnson&entity=album";
-  
+  List model = [];
   bool isLoading = false;
-  
   Future<void> getAlbum() async {
     changeLoading();
     final response = await http.get(Uri.parse(Url));
-    if (response.statusCode == 200) {
-      final models = json.decode(response.body.toString());
-      var model = models
-              .map((e) => Model.fromJson(e))
-              .toList()
-              .cast<Model>();
-      }
-     else {
-        throw Exception('Failed to load album');
-     }
-    changeLoading();
-    ;
+   
+      final jsonData = json.decode(response.body);
+      model = jsonData['results'];
+              
+             
+  
+    changeLoading();   
+    
 }
 
 void changeLoading() {
