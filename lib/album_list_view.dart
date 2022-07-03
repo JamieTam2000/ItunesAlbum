@@ -1,3 +1,4 @@
+import 'package:album/model.dart';
 import 'package:flutter/material.dart';
 import 'package:album/album_list_viewModel.dart';
 
@@ -11,11 +12,11 @@ class AlbumListView extends AlbumListViewModel {
       ),
       floatingActionButton: FloatingActionButton(onPressed: () => getAlbum(),),
       body: ListView.builder(
+        itemCount: isDone ? model.results.length : 0,
         itemBuilder: (context, index) => Card(
         child: ListTile(
-          title: Text(model.toString()),
-
-        
+          title: Image.network(model.results[index].artworkUrl100.toString()),
+          subtitle: Text(model.results[index].artistId.toString()),        
         ),
       )))
     ;

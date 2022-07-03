@@ -5,21 +5,24 @@ import 'package:http/http.dart' as http;
 import 'package:album/model.dart';
 import 'package:album/album_list.dart';
 
+
+
 abstract class AlbumListViewModel extends State<AlbumList> {
   final Url = "https://itunes.apple.com/search?term=jack+johnson&entity=album";
-  List model = [];
+  var model;
   bool isLoading = false;
+  bool isDone = false;
   Future<void> getAlbum() async {
     changeLoading();
     final response = await http.get(Uri.parse(Url));
    
       final jsonData = json.decode(response.body);
-      model = jsonData['results'];
-              
+       model = Model.fromJson(jsonData);
+          
              
-  
+
     changeLoading();   
-    
+  isDone = true; 
 }
 
 void changeLoading() {
