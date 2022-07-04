@@ -1,6 +1,11 @@
-# album
+# Album by Flutter
 
-A new Flutter project.
+A Flutter project that shows a list of albums fetched from https://itunes.apple.com/search?term=jack+johnson&entity=album.
+- Provide bookmark function
+- MVVM architectural pattern
+- More functions will be made and designed.
+
+
 
 ## Getting Started
 
