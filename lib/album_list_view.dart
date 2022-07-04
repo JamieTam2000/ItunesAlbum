@@ -7,7 +7,7 @@ class AlbumListView extends AlbumListViewModel {
     return Scaffold(
       appBar: AppBar(
         title: isLoading ? CircularProgressIndicator()
-        : Text("Album List"),
+        : Text("Itunes Album List"),
       ),
 
       floatingActionButton: !isDone ? 
@@ -19,16 +19,18 @@ class AlbumListView extends AlbumListViewModel {
           elevation: 10,))
           : null,
       
-      body: ListView.builder(
-        itemCount: isDone ? model.results.length : 0,
+      body: isDone ? ListView.builder(
+        itemCount: model.results.length,
         itemBuilder: (BuildContext context,int index) => Card(
           
         child: ListTile(
           title: Image.network(model.results[index].artworkUrl100.toString()),
           subtitle: Text(model.results[index].artistId.toString()),        
         ),
-      )))
-    ;
+      ))
+      : Center(child: Image.asset('assets/itunes.png'))
+      );
+    
   }
 
 
