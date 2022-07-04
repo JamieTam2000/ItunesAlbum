@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:http/http.dart' as http;
 import 'package:album/model/model.dart';
 import 'package:album/screens/album_list.dart';
-
+import 'package:album/album_list/album_list_view.dart';
 
 
 abstract class AlbumListViewModel extends State<AlbumList> {
@@ -11,6 +12,10 @@ abstract class AlbumListViewModel extends State<AlbumList> {
   var model;
   bool isLoading = false;
   bool isDone = false;
+  List favoriteList = [];
+  // Bad codes final bookmark = List<bool>.filled(50, false) ;
+  final bookmark = List<bool>.filled(50, false) ;
+
   Future<void> getAlbum() async {
     changeLoading();
 
@@ -33,8 +38,12 @@ void changeLoading() {
     isLoading = !isLoading;
   }); 
 }
-
-share(){}
-bookmark(){}
-
 }
+
+
+
+
+
+
+
+

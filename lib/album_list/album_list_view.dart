@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:album/album_list/album_list_viewModel.dart';
 import 'package:marquee/marquee.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
+import 'package:album/screens/album_favorite.dart';
 class AlbumListView extends AlbumListViewModel {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,9 +15,32 @@ class AlbumListView extends AlbumListViewModel {
         backgroundColor: Colors.purple,
       ),
 
+      drawer: Drawer(
+        child: Container(
+          color: Color.fromRGBO(50, 75, 205, 1),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              SizedBox(height: 50),
+              ListTile(
+                leading: Icon(Icons.favorite_border, color: Colors.white,),
+                title: Text('My Favorite', style: TextStyle(color: Colors.white),),
+                
+                onTap: (){ 
+                  Navigator.pop(context);
+                  Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => FavoritePage(favoriteList))
+                );},
+              )
+              
+          
+          ],
+      ),)) ,
+
       floatingActionButton: !isDone ? 
         Padding(padding: EdgeInsets.fromLTRB(0, 0, 10.0, 30.0),
-        child : FloatingActionButton.extended(onPressed: () => getAlbum(),
+        child : FloatingActionButton.extended(
+          onPressed: () => getAlbum(),
           icon: Icon(Icons.autorenew),
           label: Text('Load Album'),
           backgroundColor: Colors.pink,
@@ -27,24 +51,29 @@ class AlbumListView extends AlbumListViewModel {
         itemCount: model.results.length,
         shrinkWrap: false,
         itemBuilder: (BuildContext context,int index) { 
-          final album = model.results[index];
+        final album = model.results[index];
+        
 
           return Card(
           margin: EdgeInsets.zero,
           elevation: 10,
-          color: Color.fromARGB(216, 232, 232, 232),   
+          color: Color.fromARGB(247, 232, 232, 232),   
           child: Slidable(
             startActionPane: ActionPane(
-              motion: StretchMotion(),              
+              motion: StretchMotion(),
+              extentRatio: 0.5,              
               children: [
-                SlidableAction(onPressed: bookmark(),
-                backgroundColor: Colors.blue,
+                SlidableAction(onPressed: ((context) => setState(() {
+                  bookmark[index] = !bookmark[index];
+                  favoriteList.add(album);
+                })),
+                backgroundColor: Color.fromARGB(255, 31, 125, 226),
                 foregroundColor: Colors.white,
-                icon: Icons.favorite,
+                icon: bookmark[index] ? Icons.favorite : Icons.favorite_border,
                 label: 'Bookmark',
                 ),
-                SlidableAction(onPressed: share(),
-                backgroundColor: Colors.green,
+                SlidableAction(onPressed: ((context) => doSth()),
+                backgroundColor: Color.fromARGB(255, 61, 194, 97),
                 foregroundColor: Colors.white,
                 icon: Icons.share,
                 label: 'Share',
@@ -64,7 +93,7 @@ class AlbumListView extends AlbumListViewModel {
                   velocity: 30.0,
                   pauseAfterRound: Duration(seconds: 2),))
                 : Text(album.collectionName.toString(),),
-              subtitle: Text(album.artistName.toString(), overflow: TextOverflow.ellipsis,),
+              subtitle: Text('By ${album.artistName}', overflow: TextOverflow.ellipsis,),
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -73,11 +102,17 @@ class AlbumListView extends AlbumListViewModel {
 
           ),)
         );
-        })
+        }
+        )
         : Center(child: Image.asset('assets/itunes.png'))
         );
   
   }
+
+doSth(){
+
+}
+
 
 
 }

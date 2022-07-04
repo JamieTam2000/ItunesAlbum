@@ -11,11 +11,11 @@ AlbumPage(this.album);
       appBar: AppBar(
         title: Text(album.collectionName),
       ),
-      body: Center(child: Text(album.artistName),)  
+      body: Center(child: Text('Will be designed soon')),)  
       
       
       
-    );
+    ;
   }
 
 }
