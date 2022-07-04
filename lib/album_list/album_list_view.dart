@@ -1,7 +1,7 @@
 import 'package:album/screens/album_details.dart';
 import 'package:flutter/material.dart';
 import 'package:album/album_list/album_list_viewModel.dart';
-
+import 'package:marquee/marquee.dart';
 
 class AlbumListView extends AlbumListViewModel {
   @override
@@ -32,10 +32,19 @@ class AlbumListView extends AlbumListViewModel {
           elevation: 10,
           color: Color.fromARGB(216, 232, 232, 232),   
           child: ListTile(
-            leading:  
-              Image.network(album.artworkUrl100.toString(),),
-            title: Text(album.collectionName.toString(), overflow: TextOverflow.ellipsis,),
-            subtitle: Text(album.artistName.toString()),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            leading: CircleAvatar(
+              radius: 28,  
+              backgroundImage: NetworkImage(album.artworkUrl100.toString()),),
+            title: album.collectionName.length >= 36 ?           
+              SizedBox(height: 20.0,
+                child:  Marquee(text: album.collectionName.toString(),
+                blankSpace: 40.0,
+                velocity: 30.0,
+                pauseAfterRound: Duration(seconds: 2),))
+              : Text(album.collectionName.toString(),
+                  ),
+            subtitle: Text(album.artistName.toString(), overflow: TextOverflow.ellipsis,),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlbumPage(album) 
             ));
