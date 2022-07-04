@@ -14,15 +14,18 @@ abstract class AlbumListViewModel extends State<AlbumList> {
   bool isDone = false;
   Future<void> getAlbum() async {
     changeLoading();
+
     final response = await http.get(Uri.parse(Url));
-   
+    if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-       model = Model.fromJson(jsonData);
-          
-             
+      model = Model.fromJson(jsonData); 
+      isDone = true;                    
+    } else {
+      throw Exception("Fail to load album");
+    }
 
     changeLoading();   
-  isDone = true; 
+     
 }
 
 void changeLoading() {

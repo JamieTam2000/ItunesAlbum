@@ -14,6 +14,7 @@ class AlbumListView extends AlbumListViewModel {
       body: ListView.builder(
         itemCount: isDone ? model.results.length : 0,
         itemBuilder: (context, index) => Card(
+          
         child: ListTile(
           title: Image.network(model.results[index].artworkUrl100.toString()),
           subtitle: Text(model.results[index].artistId.toString()),        
