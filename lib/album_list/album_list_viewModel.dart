@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:album/model.dart';
-import 'package:album/album_list.dart';
+import 'package:album/model/model.dart';
+import 'package:album/screens/album_list.dart';
 
 
 
@@ -19,7 +19,8 @@ abstract class AlbumListViewModel extends State<AlbumList> {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       model = Model.fromJson(jsonData); 
-      isDone = true;                    
+      isDone = true;
+                          
     } else {
       throw Exception("Fail to load album");
     }

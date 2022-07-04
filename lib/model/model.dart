@@ -14,6 +14,8 @@ class Model {
     }
   }
 
+  get length => null;
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['resultCount'] = this.resultCount;
@@ -47,7 +49,7 @@ class Results {
   String? primaryGenreName;
   String? contentAdvisoryRating;
 
-  Results(
+  Results(jsonData, 
       {this.wrapperType,
       this.collectionType,
       this.artistId,

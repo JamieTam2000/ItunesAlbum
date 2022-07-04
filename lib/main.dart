@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:album/album_list.dart';
+import 'package:album/screens/album_list.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,5 +1,7 @@
+import 'package:album/screens/album_details.dart';
 import 'package:flutter/material.dart';
-import 'package:album/album_list_viewModel.dart';
+import 'package:album/album_list/album_list_viewModel.dart';
+
 
 class AlbumListView extends AlbumListViewModel {
   @override
@@ -22,21 +24,29 @@ class AlbumListView extends AlbumListViewModel {
       
       body: isDone ? ListView.builder(
         itemCount: model.results.length,
-        itemBuilder: (BuildContext context,int index) => Card(
-          elevation: 6,
-          margin: EdgeInsets.symmetric(horizontal:5, vertical: 5),
+        itemBuilder: (BuildContext context,int index) { 
+          final album = model.results[index];
+
+          return Card(
+          margin: EdgeInsets.zero,
+          elevation: 10,
           color: Color.fromARGB(216, 232, 232, 232),   
           child: ListTile(
-            leading: SizedBox(height: 150, width: 100, 
-              child: Image.network(model.results[index].artworkUrl100.toString(),)),
-            title: Text(model.results[index].collectionName.toString(), overflow: TextOverflow.ellipsis,),
-            subtitle: Text(model.results[index].artistName.toString()),
-            trailing: Icon(Icons.arrow_forward_ios),        
+            leading:  
+              Image.network(album.artworkUrl100.toString(),),
+            title: Text(album.collectionName.toString(), overflow: TextOverflow.ellipsis,),
+            subtitle: Text(album.artistName.toString()),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlbumPage(album) 
+            ));
+            },
+
         ),
-      ))
+      );
+      })
       : Center(child: Image.asset('assets/itunes.png'))
       );
-    
+  
   }
 
 
