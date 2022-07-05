@@ -65,7 +65,9 @@ class AlbumListView extends AlbumListViewModel {
               children: [
                 SlidableAction(onPressed: ((context) => setState(() {
                   bookmark[index] = !bookmark[index];
+                  if(bookmark[index] == true){
                   favoriteList.add(album);
+                  } else {favoriteList.remove(album);}
                 })),
                 backgroundColor: Color.fromARGB(255, 31, 125, 226),
                 foregroundColor: Colors.white,
